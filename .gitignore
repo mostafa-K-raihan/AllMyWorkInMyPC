@@ -1,0 +1,9 @@
+.cache
+.motd_shown
+.profile
+.viminfo
+.sudo_as_admin_successful
+.lesshst
+.local
+node_modules
+.ssh
