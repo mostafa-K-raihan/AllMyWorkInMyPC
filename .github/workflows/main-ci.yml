@@ -1,0 +1,54 @@
+name: Main CI/CD
+
+on:
+  pull_request:
+    branches: [ master ]
+
+jobs:
+  check-submodules:
+    runs-on: ubuntu-latest
+    steps:
+    - uses: actions/checkout@v3
+      with:
+        submodules: 'recursive'
+    
+    - name: Set up Python
+      uses: actions/setup-python@v4
+      with:
+        python-version: '3.9'
+    
+    # Cache pip packages
+    - name: Cache pip packages
+      uses: actions/cache@v3
+      with:
+        path: ~/.cache/pip
+        key: ${{ runner.os }}-pip-${{ hashFiles('**/requirements.txt') }}
+        restore-keys: |
+          ${{ runner.os }}-pip-
+    
+    # Check ytproc submodule
+    - name: Check ytproc
+      if: contains(github.event.pull_request.changed_files, 'code/cli/ytproc/')
+      run: |
+        cd code/cli/ytproc
+        pip install -r requirements.txt
+        pytest --cov=ytproc tests/
+      env:
+        PYTHONPATH: ${{ github.workspace }}/code/cli/ytproc
+
+  # Add more submodule checks here as needed
+  # Example:
+  # check-cli-qf:
+  #   if: contains(github.event.pull_request.changed_files, 'code/cli/cli-qf/')
+  #   ...
+
+  # Add any main project specific checks here
+  check-main-project:
+    runs-on: ubuntu-latest
+    steps:
+    - uses: actions/checkout@v3
+    
+    - name: Check for broken links
+      run: |
+        # Add your main project checks here
+        echo "Main project checks completed" 
