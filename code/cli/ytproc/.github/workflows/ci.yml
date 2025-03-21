@@ -13,12 +13,12 @@ jobs:
     runs-on: ubuntu-latest
     steps:
     - uses: actions/checkout@v3
-    
+
     - name: Set up Python
       uses: actions/setup-python@v4
       with:
         python-version: '3.9'
-    
+
     # Cache pip packages
     - name: Cache pip packages
       uses: actions/cache@v3
@@ -27,7 +27,7 @@ jobs:
         key: ${{ runner.os }}-pip-${{ hashFiles('code/cli/ytproc/requirements.txt') }}
         restore-keys: |
           ${{ runner.os }}-pip-
-    
+
     # Cache FFmpeg
     - name: Cache FFmpeg
       id: cache-ffmpeg
@@ -35,7 +35,7 @@ jobs:
       with:
         path: ~/.ffmpeg
         key: ${{ runner.os }}-ffmpeg-4.4
-    
+
     # Install FFmpeg only if not cached
     - name: Install FFmpeg
       if: steps.cache-ffmpeg.outputs.cache-hit != 'true'
@@ -45,24 +45,24 @@ jobs:
         sudo apt-get install -y ffmpeg
         cp $(which ffmpeg) ~/.ffmpeg/
         cp $(which ffprobe) ~/.ffmpeg/
-    
+
     # Add cached FFmpeg to PATH
     - name: Add FFmpeg to PATH
       run: |
         echo "$HOME/.ffmpeg" >> $GITHUB_PATH
-    
+
     - name: Install dependencies
       run: |
         python -m pip install --upgrade pip
         pip install -r code/cli/ytproc/requirements.txt
-    
+
     - name: Run tests with coverage
       run: |
         cd code/cli/ytproc
         pytest --cov=ytproc tests/
-    
+
     - name: Upload coverage to Codecov
       uses: codecov/codecov-action@v3
       with:
         file: code/cli/ytproc/coverage.xml
-        fail_ci_if_error: true 
+        fail_ci_if_error: true

@@ -42,4 +42,4 @@ python ytproc.py download "https://www.youtube.com/watch?v=VIDEO_ID" -o output -
 
 ## Note
 
-Make sure you have FFmpeg installed on your system for audio conversion functionality. 
+Make sure you have FFmpeg installed on your system for audio conversion functionality.
