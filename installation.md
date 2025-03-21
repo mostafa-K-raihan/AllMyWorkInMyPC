@@ -1,5 +1,9 @@
 # unzip
 sudo apt install unzip
+
+# nvim
+sudo apt-get install neovim
+
 # Node, fnm, pnpm
 # Download and install fnm:
 curl -o- https://fnm.vercel.app/install | bash
