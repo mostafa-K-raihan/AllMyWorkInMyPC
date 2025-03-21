@@ -1,3 +1,5 @@
+
+
 export const ALTERNATE_SCREEN = '\x1b[?1049h';
 export const NORMAL_SCREEN = '\x1b[?1049l';
 
