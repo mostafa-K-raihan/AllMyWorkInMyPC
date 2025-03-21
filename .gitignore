@@ -33,3 +33,9 @@ ENV/
 # System files
 .DS_Store
 Thumbs.db
+
+# Logs
+*.log
+logs/
+log/
+.landscape/sysinfo.log
