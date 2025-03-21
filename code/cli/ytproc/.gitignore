@@ -1,6 +1,7 @@
 
 
 
+
 # Python
 __pycache__/
 *.py[cod]
@@ -45,4 +46,3 @@ coverage.xml
 *.mp4
 *.wav
 *.m4a
-
