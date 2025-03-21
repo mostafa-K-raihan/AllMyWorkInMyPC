@@ -2,7 +2,6 @@ import os
 from unittest.mock import MagicMock, patch
 
 import pytest
-
 from ytproc import convert_to_audio, download_video
 
 
@@ -45,7 +44,13 @@ def test_cli_download_video():
 
         with patch(
             "sys.argv",
-            ["ytproc.py", "download", "https://www.youtube.com/watch?v=test", "-o", "output"],
+            [
+                "ytproc.py",
+                "download",
+                "https://www.youtube.com/watch?v=test",
+                "-o",
+                "output",
+            ],
         ):
             cli()
             mock_download.assert_called_once_with(
@@ -75,4 +80,4 @@ def test_cli_download_audio():
                 "https://www.youtube.com/watch?v=test", "output.mp4"
             )
             mock_convert.assert_called_once_with("output.mp4", "output.mp3")
-            mock_remove.assert_called_once_with("output.mp4") 
+            mock_remove.assert_called_once_with("output.mp4")

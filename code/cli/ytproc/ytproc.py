@@ -42,8 +42,12 @@ def cli():
 
 @cli.command()
 @click.argument("url")
-@click.option("--output", "-o", default="output", help="Output filename (without extension)")
-@click.option("--audio-only", "-a", is_flag=True, help="Download and convert to audio only")
+@click.option(
+    "--output", "-o", default="output", help="Output filename (without extension)"
+)
+@click.option(
+    "--audio-only", "-a", is_flag=True, help="Download and convert to audio only"
+)
 def download(url, output, audio_only):
     """Download YouTube video and optionally convert to audio"""
     try:
@@ -72,5 +76,4 @@ def download(url, output, audio_only):
 
 
 if __name__ == "__main__":
-    cli() 
-
+    cli()
