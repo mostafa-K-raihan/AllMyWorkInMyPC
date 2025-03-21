@@ -1,0 +1,3 @@
+[submodule "code/cli/ytproc"]
+	path = code/cli/ytproc
+	url = git@github.com:mostafa-K-raihan/ytproc.git
