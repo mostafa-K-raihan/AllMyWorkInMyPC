@@ -7,3 +7,29 @@
 .local
 node_modules
 .ssh
+
+# Python
+__pycache__/
+*.py[cod]
+*$py.class
+
+# Shell history
+.bash_history
+.lesshst
+.viminfo
+
+# IDE and editors
+.vscode/
+.idea/
+*.swp
+*.swo
+
+# Environment
+.env
+.venv/
+venv/
+ENV/
+
+# System files
+.DS_Store
+Thumbs.db
