@@ -5,10 +5,10 @@ import { emitKeypressEvents } from 'readline'
 
 
 function setupTerminal() {
-  
+
   emitKeypressEvents(process.stdin)
   process.stdin.setRawMode(true)
-  
+
   // go to the alrernate screen
   process.stdout.write('\x1b[?1049h')
   process.stdout.write('\x1b[2J');     // Clear the alternate screen
@@ -23,14 +23,14 @@ function gameover() {
 	return
 }
 
-const state = { 
-	x: 0, 
-	y: 0, 
-	targetX: 9, 
-	targetY: 19, 
+const state = {
+	x: 0,
+	y: 0,
+	targetX: 9,
+	targetY: 19,
 	interval: setInterval(function () {
-	  moveTarget();	  
-        }, 100) 
+	  moveTarget();
+        }, 100)
 }
 
 setupTerminal()
@@ -71,6 +71,3 @@ function render() {
   process.stdout.cursorTo(state.targetX, state.targetY)
   process.stdout.write('0')
 }
-
-
-

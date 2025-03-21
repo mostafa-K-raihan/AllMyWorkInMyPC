@@ -12,7 +12,7 @@
 	cp = cherry-pick
 	lg = log --graph --format='%C(yellow)%h%Creset -%C(auto)%d%Creset %s %Cgreen(%cr) %C(blue)<%an>%Creset'
 	spp = !git stash && git pull && git stash pop
-	ps = push -f 
+	ps = push -f
 	remotes = remote -v
         tags = tag -l --sort="v:refname"
         unstage = reset HEAD --
@@ -28,3 +28,7 @@
 	filemode = false
 [safe]
 	directory = /code
+
+[author "ai"]
+	email = ai@example.com
+	name = AI Assistant
