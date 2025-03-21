@@ -1,5 +1,6 @@
 
 
+
 #!/usr/bin/env node
 
 import process from 'node:process'
@@ -73,7 +74,4 @@ function render() {
   process.stdout.cursorTo(state.targetX, state.targetY)
   process.stdout.write('0')
 }
-
-
-
 
