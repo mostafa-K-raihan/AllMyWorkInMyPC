@@ -14,7 +14,7 @@ console = Console()
 
 def check_ffmpeg():
     """Check if ffmpeg is available in the system"""
-    if not shutil.which('ffmpeg'):
+    if not shutil.which("ffmpeg"):
         console.print("[red]Error: ffmpeg is not installed or not in PATH")
         console.print("[yellow]Please install ffmpeg using:")
         console.print("[yellow]  Ubuntu/Debian: sudo apt install ffmpeg")
