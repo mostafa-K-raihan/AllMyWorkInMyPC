@@ -39,18 +39,20 @@ sudo cp dist/ytproc /usr/local/bin/
 
 ## Usage
 
-### Interactive Mode
+### Interactive Mode (Default)
+Simply run the program without any arguments:
 ```bash
-ytproc -i
+ytproc
 ```
 
 ### Command-line Mode
+Use the `-c` or `--cli` flag for command-line mode:
 ```bash
 # Download video
-ytproc https://youtube.com/watch?v=VIDEO_ID -o output.mp4
+ytproc -c https://youtube.com/watch?v=VIDEO_ID -o output.mp4
 
 # Download audio
-ytproc https://youtube.com/watch?v=VIDEO_ID -a -o output.mp3
+ytproc -c https://youtube.com/watch?v=VIDEO_ID -a -o output.mp3
 ```
 
 ### Download Video

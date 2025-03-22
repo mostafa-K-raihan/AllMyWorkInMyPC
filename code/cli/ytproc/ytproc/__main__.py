@@ -11,7 +11,10 @@ def parse_args():
     """Parse command line arguments."""
     parser = argparse.ArgumentParser(description="Download YouTube videos and audio")
     parser.add_argument(
-        "-i", "--interactive", action="store_true", help="Run in interactive mode"
+        "-c",
+        "--cli",
+        action="store_true",
+        help="Run in command-line mode (non-interactive)",
     )
     parser.add_argument("url", nargs="?", help="YouTube URL to download")
     parser.add_argument("-o", "--output", help="Output filename")
