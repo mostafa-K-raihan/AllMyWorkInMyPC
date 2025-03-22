@@ -1,7 +1,6 @@
 #!/usr/bin/env python3
 import os
 import shutil
-import subprocess
 
 import click
 import yt_dlp
@@ -19,7 +18,9 @@ def check_ffmpeg():
         console.print("[yellow]Please install ffmpeg using:")
         console.print("[yellow]  Ubuntu/Debian: sudo apt install ffmpeg")
         console.print("[yellow]  macOS: brew install ffmpeg")
-        console.print("[yellow]  Windows: Download from https://ffmpeg.org/download.html")
+        console.print(
+            "[yellow]  Windows: Download from https://ffmpeg.org/download.html"
+        )
         raise click.Abort()
 
 

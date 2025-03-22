@@ -22,4 +22,4 @@ repos:
     hooks:
     -   id: isort
         args: ["--profile", "black"]
-        exclude: ^(venv|env|.env|.venv|ENV)/
+        exclude: ^(venv|env|.env|.venv|ENV)/ 

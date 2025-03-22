@@ -2,7 +2,6 @@ import os
 from unittest.mock import MagicMock, patch
 
 import pytest
-
 from ytproc import check_ffmpeg, convert_to_audio, download_video
 
 
