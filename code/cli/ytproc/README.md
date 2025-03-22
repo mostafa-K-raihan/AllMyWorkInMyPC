@@ -1,4 +1,3 @@
-
 # YTPROC - YouTube Video Processing CLI Tool
 
 A command-line tool for downloading YouTube videos and converting them to audio format.
@@ -18,7 +17,41 @@ A command-line tool for downloading YouTube videos and converting them to audio 
 pip install -r requirements.txt
 ```
 
+## Building the Binary
+
+To create a standalone executable:
+
+```bash
+# Clone the repository
+git clone https://github.com/yourusername/ytproc.git
+cd ytproc
+
+# Build the binary
+./scripts/build_binary.sh
+```
+
+The executable will be created in the `dist` directory. You can then copy it to your desired location:
+
+```bash
+# Copy to a directory in your PATH (e.g., /usr/local/bin)
+sudo cp dist/ytproc /usr/local/bin/
+```
+
 ## Usage
+
+### Interactive Mode
+```bash
+ytproc -i
+```
+
+### Command-line Mode
+```bash
+# Download video
+ytproc https://youtube.com/watch?v=VIDEO_ID -o output.mp4
+
+# Download audio
+ytproc https://youtube.com/watch?v=VIDEO_ID -a -o output.mp3
+```
 
 ### Download Video
 ```bash

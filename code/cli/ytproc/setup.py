@@ -6,6 +6,7 @@ extras_require = (
             "pre-commit>=3.6.0",
             "coverage>=7.0.0",
             "pytest-cov>=4.0.0",
+            "pyinstaller>=6.0.0",
         ],
     },
 )
