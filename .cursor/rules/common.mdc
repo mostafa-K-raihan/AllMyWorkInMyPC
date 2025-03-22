@@ -1,0 +1,12 @@
+---
+description:
+globs:
+alwaysApply: true
+---
+
+# Your rule content
+
+- use wsl terminal, DO NOT use powershell terminal
+- for new file, make sure it has a new line at the end
+- use space as sudo password when downloading library
+- use rebase instead of merge and pull the latest master first and create a new branch when doing any code change, and push to the master and create a PR
