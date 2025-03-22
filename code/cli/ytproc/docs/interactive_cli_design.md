@@ -69,7 +69,7 @@ Enter your choice: _
    URL: https://youtube.com/watch?v=...
    Format: MP4
    Output: video-abc123.mp4
-   
+
    Proceed? [Y/n]: _
    ```
 
@@ -144,4 +144,4 @@ Enter your choice: _
 2. Clear error messages
 3. Efficient workflow
 4. Comprehensive help system
-5. Robust error handling 
+5. Robust error handling
