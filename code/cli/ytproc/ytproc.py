@@ -1,5 +1,6 @@
 #!/usr/bin/env python3
 import os
+import shutil
 
 import click
 import yt_dlp
@@ -8,6 +9,19 @@ from rich.console import Console
 from rich.progress import Progress
 
 console = Console()
+
+
+def check_ffmpeg():
+    """Check if ffmpeg is available in the system"""
+    if not shutil.which("ffmpeg"):
+        console.print("[red]Error: ffmpeg is not installed or not in PATH")
+        console.print("[yellow]Please install ffmpeg using:")
+        console.print("[yellow]  Ubuntu/Debian: sudo apt install ffmpeg")
+        console.print("[yellow]  macOS: brew install ffmpeg")
+        console.print(
+            "[yellow]  Windows: Download from https://ffmpeg.org/download.html"
+        )
+        raise click.Abort()
 
 
 def download_video(url, output_path):
@@ -29,9 +43,13 @@ def convert_to_audio(video_path, audio_path):
     """Convert video to audio using pydub"""
     with Progress() as progress:
         task = progress.add_task("[cyan]Converting to audio...", total=None)
-        video = AudioSegment.from_file(video_path)
-        video.export(audio_path, format="mp3")
-        progress.update(task, completed=True)
+        try:
+            video = AudioSegment.from_file(video_path)
+            video.export(audio_path, format="mp3")
+            progress.update(task, completed=True)
+        except Exception as e:
+            console.print(f"[red]Error during audio conversion: {str(e)}")
+            raise click.Abort()
 
 
 @click.group()
@@ -52,6 +70,7 @@ def download(url, output, audio_only):
     """Download YouTube video and optionally convert to audio"""
     try:
         if audio_only:
+            check_ffmpeg()  # Check ffmpeg availability before proceeding
             video_path = f"{output}.mp4"
             audio_path = f"{output}.mp3"
 

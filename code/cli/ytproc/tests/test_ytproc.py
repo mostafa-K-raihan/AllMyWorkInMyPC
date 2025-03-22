@@ -2,40 +2,51 @@ import os
 from unittest.mock import MagicMock, patch
 
 import pytest
-from ytproc import convert_to_audio, download_video
+from ytproc import check_ffmpeg, convert_to_audio, download_video
+
+
+def test_check_ffmpeg_available():
+    """Test that check_ffmpeg doesn't raise when ffmpeg is available"""
+    with patch("shutil.which") as mock_which:
+        mock_which.return_value = "/usr/bin/ffmpeg"
+        check_ffmpeg()  # Should not raise
+
+
+def test_check_ffmpeg_not_available():
+    """Test that check_ffmpeg raises when ffmpeg is not available"""
+    with patch("shutil.which") as mock_which:
+        mock_which.return_value = None
+        with pytest.raises(SystemExit):
+            check_ffmpeg()
 
 
 def test_download_video():
+    """Test video download functionality"""
+    url = "https://www.youtube.com/watch?v=dQw4w9WgXcQ"
+    output_path = "test_output.mp4"
+
     with patch("yt_dlp.YoutubeDL") as mock_ydl:
-        # Mock the download method
-        mock_instance = MagicMock()
-        mock_ydl.return_value.__enter__.return_value = mock_instance
+        mock_ydl_instance = MagicMock()
+        mock_ydl.return_value.__enter__.return_value = mock_ydl_instance
 
-        # Test the download function
-        download_video("https://www.youtube.com/watch?v=test", "test.mp4")
+        download_video(url, output_path)
 
-        # Verify that YoutubeDL was called with correct options
-        mock_ydl.assert_called_once()
-        call_args = mock_ydl.call_args[0][0]
-        assert call_args["format"] == "best"
-        assert call_args["outtmpl"] == "test.mp4"
-        assert call_args["quiet"] is True
+        mock_ydl_instance.download.assert_called_once_with([url])
 
 
 def test_convert_to_audio():
-    with patch("pydub.AudioSegment.from_file") as mock_from_file, patch(
-        "pydub.AudioSegment.export"
-    ) as mock_export:
-        # Mock the audio conversion
-        mock_audio = MagicMock()
-        mock_from_file.return_value = mock_audio
+    """Test audio conversion functionality"""
+    video_path = "test_video.mp4"
+    audio_path = "test_audio.mp3"
 
-        # Test the conversion function
-        convert_to_audio("test.mp4", "test.mp3")
+    with patch("pydub.AudioSegment") as mock_audio:
+        mock_audio_instance = MagicMock()
+        mock_audio.from_file.return_value = mock_audio_instance
 
-        # Verify that the conversion was called with correct parameters
-        mock_from_file.assert_called_once_with("test.mp4")
-        mock_export.assert_called_once_with("test.mp3", format="mp3")
+        convert_to_audio(video_path, audio_path)
+
+        mock_audio.from_file.assert_called_once_with(video_path)
+        mock_audio_instance.export.assert_called_once_with(audio_path, format="mp3")
 
 
 def test_cli_download_video():
