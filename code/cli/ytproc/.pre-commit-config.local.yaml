@@ -15,12 +15,11 @@ repos:
     hooks:
     -   id: black
         language_version: python3.12
-        args: [--check]
         exclude: ^(venv|env|.env|.venv|ENV)/
 
 -   repo: https://github.com/pycqa/isort
     rev: 5.13.2
     hooks:
     -   id: isort
-        args: ["--profile", "black", "--check-only"]
+        args: ["--profile", "black"]
         exclude: ^(venv|env|.env|.venv|ENV)/ 
