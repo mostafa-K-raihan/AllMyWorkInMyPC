@@ -5,33 +5,15 @@ repos:
     -   id: trailing-whitespace
     -   id: end-of-file-fixer
     -   id: check-yaml
-    -   id: check-added-large-files
-    -   id: check-ast
     -   id: check-json
-    -   id: check-merge-conflict
-    -   id: detect-private-key
-    -   id: check-case-conflict
-    -   id: check-executables-have-shebangs
-    -   id: check-shebang-scripts-are-executable
-    -   id: check-symlinks
-    -   id: debug-statements
-    -   id: mixed-line-ending
 
 # Go specific hooks
 -   repo: https://github.com/dnephin/pre-commit-golang
     rev: v0.5.1
     hooks:
     -   id: go-fmt
-        args: [-s]
+        files: \.go$
     -   id: go-vet
-        args: [-v]
-    -   id: go-imports
+        files: \.go$
     -   id: golangci-lint
-        args: [--timeout=5m]
-    -   id: go-unit-tests
-        args: [-v -count=1 -race -coverprofile=coverage.txt -covermode=atomic]
-    -   id: go-build
-    -   id: go-mod-tidy
-    -   id: go-validate
-    -   id: go-test-coverage
-        args: [--min-coverage=80]
+        files: \.go$

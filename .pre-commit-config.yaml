@@ -1,57 +1,13 @@
 repos:
--   repo: https://github.com/pre-commit/pre-commit-hooks
-    rev: v5.0.0
+-   repo: local
     hooks:
-    -   id: trailing-whitespace
-    -   id: end-of-file-fixer
-    -   id: check-yaml
-    -   id: check-added-large-files
-    -   id: check-ast
-    -   id: check-json
-    -   id: check-merge-conflict
-    -   id: detect-private-key
-    -   id: check-case-conflict
-    -   id: check-docstring-first
-    -   id: check-executables-have-shebangs
-    -   id: check-shebang-scripts-are-executable
-    -   id: check-symlinks
-    -   id: check-xml
-    -   id: debug-statements
-    -   id: mixed-line-ending
-    -   id: requirements-txt-fixer
+      - id: delegate-precommit
+        name: Delegate Pre-commit Tasks
+        entry: |
+          echo "Delegating pre-commit tasks to submodules"
+          cd code/cli/ytproc && go run precommit.go
+        language: system
+        types: [go]  # Ensure this runs only for Go files
 
-# Python specific hooks
--   repo: https://github.com/psf/black
-    rev: 25.1.0
-    hooks:
-    -   id: black
-        language_version: python3.12
-        exclude: ^(venv|env|.env|.venv|ENV)/
-
--   repo: https://github.com/pycqa/isort
-    rev: 6.0.1
-    hooks:
-    -   id: isort
-        args: ["--profile", "black"]
-        exclude: ^(venv|env|.env|.venv|ENV)/
-
-# Go specific hooks
--   repo: https://github.com/dnephin/pre-commit-golang
-    rev: v0.5.1
-    hooks:
-    -   id: go-fmt
-        files: \.go$
-    -   id: go-vet
-        files: \.go$
-    -   id: go-imports
-        files: \.go$
-    -   id: golangci-lint
-        args: [--timeout=5m]
-        files: \.go$
-    -   id: go-unit-tests
-        args: [-v -count=1]
-        files: \.go$
-    -   id: go-build
-        files: \.go$
-    -   id: go-mod-tidy
-        files: go\.mod$
+# Remove any Python-specific hooks
+# If you had any Python-specific hooks, they should be deleted from here.

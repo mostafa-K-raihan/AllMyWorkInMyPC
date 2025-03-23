@@ -45,58 +45,58 @@ It provides an interactive interface for easy video downloading and processing.`
 
 	// Styles
 	titleStyle = lipgloss.NewStyle().
-		Bold(true).
-		Foreground(lipgloss.Color("205")).
-		MarginBottom(1)
+			Bold(true).
+			Foreground(lipgloss.Color("205")).
+			MarginBottom(1)
 
 	subtitleStyle = lipgloss.NewStyle().
-		Foreground(lipgloss.Color("241")).
-		MarginBottom(1)
+			Foreground(lipgloss.Color("241")).
+			MarginBottom(1)
 
 	highlightStyle = lipgloss.NewStyle().
-		Foreground(lipgloss.Color("205")).
-		Bold(true)
+			Foreground(lipgloss.Color("205")).
+			Bold(true)
 
 	optionStyle = lipgloss.NewStyle().
-		Foreground(lipgloss.Color("252"))
+			Foreground(lipgloss.Color("252"))
 
 	selectedStyle = lipgloss.NewStyle().
-		Foreground(lipgloss.Color("205")).
-		Bold(true)
+			Foreground(lipgloss.Color("205")).
+			Bold(true)
 
 	boxStyle = lipgloss.NewStyle().
-		Border(lipgloss.RoundedBorder()).
-		BorderForeground(lipgloss.Color("205")).
-		Padding(1).
-		Align(lipgloss.Left)
+			Border(lipgloss.RoundedBorder()).
+			BorderForeground(lipgloss.Color("205")).
+			Padding(1).
+			Align(lipgloss.Left)
 
 	logStyle = lipgloss.NewStyle().
-		Foreground(lipgloss.Color("252")).
-		Width(70).
-		Border(lipgloss.RoundedBorder()).
-		BorderForeground(lipgloss.Color("205")).
-		Padding(1).
-		Align(lipgloss.Left)
+			Foreground(lipgloss.Color("252")).
+			Width(70).
+			Border(lipgloss.RoundedBorder()).
+			BorderForeground(lipgloss.Color("205")).
+			Padding(1).
+			Align(lipgloss.Left)
 
 	successStyle = lipgloss.NewStyle().
-		Foreground(lipgloss.Color("82")).
-		Bold(true)
+			Foreground(lipgloss.Color("82")).
+			Bold(true)
 )
 
 type model struct {
-	urlInput     textinput.Model
-	outputInput  textinput.Model
-	spinner      spinner.Model
-	state        string
-	err          error
-	success      bool
-	width        int
-	height       int
-	downloadLog  []string
-	lastUpdate   time.Time
+	urlInput       textinput.Model
+	outputInput    textinput.Model
+	spinner        spinner.Model
+	state          string
+	err            error
+	success        bool
+	width          int
+	height         int
+	downloadLog    []string
+	lastUpdate     time.Time
 	selectedOption int
-	downloadType string // "video", "audio", or "both"
-	showBanner   bool
+	downloadType   string // "video", "audio", or "both"
+	showBanner     bool
 }
 
 func initialModel() model {
@@ -114,14 +114,14 @@ func initialModel() model {
 	s.Style = lipgloss.NewStyle().Foreground(lipgloss.Color("205"))
 
 	return model{
-		urlInput:    urlInput,
-		outputInput: outputInput,
-		spinner:     s,
-		state:       "welcome",
-		downloadLog: make([]string, 0),
-		lastUpdate:  time.Now(),
+		urlInput:     urlInput,
+		outputInput:  outputInput,
+		spinner:      s,
+		state:        "welcome",
+		downloadLog:  make([]string, 0),
+		lastUpdate:   time.Now(),
 		downloadType: "both",
-		showBanner:  true,
+		showBanner:   true,
 	}
 }
 
@@ -196,8 +196,8 @@ func (m model) Update(msg tea.Msg) (tea.Model, tea.Cmd) {
 				switch m.selectedOption {
 				case 0: // Download another video
 					newModel := initialModel()
-					newModel.width = m.width    // Preserve window size
-					newModel.height = m.height  // Preserve window size
+					newModel.width = m.width   // Preserve window size
+					newModel.height = m.height // Preserve window size
 					newModel.state = "url"
 					return newModel, nil
 				case 1: // Exit
@@ -268,12 +268,12 @@ func (m model) View() string {
 		content.WriteString(titleStyle.Render("✨ Welcome to YouTube Video Processor ✨") + "\n\n")
 		content.WriteString(boxStyle.Width(60).Render(
 			"This tool helps you download YouTube videos with ease!\n\n" +
-			highlightStyle.Render("Features:") + "\n" +
-			"• Download videos in highest quality\n" +
-			"• Download audio only\n" +
-			"• Custom output filenames\n" +
-			"• Interactive UI with real-time progress\n\n" +
-			subtitleStyle.Render("Press ENTER to start, ESC to quit"),
+				highlightStyle.Render("Features:") + "\n" +
+				"• Download videos in highest quality\n" +
+				"• Download audio only\n" +
+				"• Custom output filenames\n" +
+				"• Interactive UI with real-time progress\n\n" +
+				subtitleStyle.Render("Press ENTER to start, ESC to quit"),
 		))
 
 	case "url":
@@ -282,8 +282,8 @@ func (m model) View() string {
 		}
 		content.WriteString(boxStyle.Width(60).Render(
 			subtitleStyle.Render("Enter YouTube URL:") + "\n" +
-			m.urlInput.View() + "\n\n" +
-			subtitleStyle.Render("Press ENTER to continue"),
+				m.urlInput.View() + "\n\n" +
+				subtitleStyle.Render("Press ENTER to continue"),
 		))
 
 	case "download_type":
@@ -292,10 +292,10 @@ func (m model) View() string {
 		}
 		content.WriteString(boxStyle.Width(60).Render(
 			subtitleStyle.Render("Select Download Type:") + "\n\n" +
-			renderOption("Both Video and Audio", m.downloadType == "both") + "\n" +
-			renderOption("Video Only", m.downloadType == "video") + "\n" +
-			renderOption("Audio Only", m.downloadType == "audio") + "\n\n" +
-			subtitleStyle.Render("Use ↑↓ to select, ENTER to continue"),
+				renderOption("Both Video and Audio", m.downloadType == "both") + "\n" +
+				renderOption("Video Only", m.downloadType == "video") + "\n" +
+				renderOption("Audio Only", m.downloadType == "audio") + "\n\n" +
+				subtitleStyle.Render("Use ↑↓ to select, ENTER to continue"),
 		))
 
 	case "output":
@@ -304,17 +304,17 @@ func (m model) View() string {
 		}
 		content.WriteString(boxStyle.Width(60).Render(
 			subtitleStyle.Render("Enter output filename (optional):") + "\n" +
-			m.outputInput.View() + "\n\n" +
-			subtitleStyle.Render("Press ENTER to start download"),
+				m.outputInput.View() + "\n\n" +
+				subtitleStyle.Render("Press ENTER to start download"),
 		))
 
 	case "processing":
 		// No banner during processing
 		content.WriteString(boxStyle.Width(60).Render(
 			highlightStyle.Render("Downloading...") + "\n\n" +
-			m.spinner.View() + " " + getProgressStatus(m.downloadLog) + "\n" +
-			getProgressBar(m.downloadLog) + "\n\n" +
-			subtitleStyle.Render("This may take a few minutes..."),
+				m.spinner.View() + " " + getProgressStatus(m.downloadLog) + "\n" +
+				getProgressBar(m.downloadLog) + "\n\n" +
+				subtitleStyle.Render("This may take a few minutes..."),
 		))
 
 	case "options":
@@ -323,9 +323,9 @@ func (m model) View() string {
 		}
 		content.WriteString(boxStyle.Width(60).Render(
 			successStyle.Render("Download Complete!") + "\n\n" +
-			renderOption("Download Another Video", m.selectedOption == 0) + "\n" +
-			renderOption("Exit", m.selectedOption == 1) + "\n\n" +
-			subtitleStyle.Render("Use ↑↓ to select, ENTER to confirm"),
+				renderOption("Download Another Video", m.selectedOption == 0) + "\n" +
+				renderOption("Exit", m.selectedOption == 1) + "\n\n" +
+				subtitleStyle.Render("Use ↑↓ to select, ENTER to confirm"),
 		))
 	}
 
@@ -384,28 +384,28 @@ func processVideo(url, outputName, downloadType string, logCallback func(string)
 		cmd = exec.Command("yt-dlp",
 			"-x",                    // Extract audio
 			"--audio-format", "mp3", // Convert to MP3
-			"--audio-quality", "0",  // Best quality
+			"--audio-quality", "0", // Best quality
 			"-o", outputName,
-			"--progress",           // Show progress
-			"--newline",           // Force new lines
-			"--quiet",             // Suppress unnecessary output
+			"--progress", // Show progress
+			"--newline",  // Force new lines
+			"--quiet",    // Suppress unnecessary output
 			url)
 	case "video":
 		cmd = exec.Command("yt-dlp",
 			"--format", "bestvideo[ext=mp4]+bestaudio[ext=m4a]/best[ext=mp4]/best", // Best quality MP4
 			"-o", outputName,
-			"--progress",           // Show progress
-			"--newline",           // Force new lines
-			"--quiet",             // Suppress unnecessary output
+			"--progress", // Show progress
+			"--newline",  // Force new lines
+			"--quiet",    // Suppress unnecessary output
 			url)
 	default: // "both"
 		cmd = exec.Command("yt-dlp",
 			"--format", "bestvideo[ext=mp4]+bestaudio[ext=m4a]/best[ext=mp4]/best", // Best quality MP4
 			"-o", outputName,
-			"--write-sub",         // Include subtitles if available
-			"--progress",          // Show progress
-			"--newline",          // Force new lines
-			"--quiet",            // Suppress unnecessary output
+			"--write-sub", // Include subtitles if available
+			"--progress",  // Show progress
+			"--newline",   // Force new lines
+			"--quiet",     // Suppress unnecessary output
 			url)
 	}
 
@@ -459,14 +459,14 @@ func getProgressStatus(logs []string) string {
 	if len(logs) == 0 {
 		return "Initializing..."
 	}
-	
+
 	lastLog := logs[len(logs)-1]
-	
+
 	// Extract percentage if available
 	if strings.Contains(lastLog, "of") && strings.Contains(lastLog, "at") {
 		return lastLog
 	}
-	
+
 	return "Processing..."
 }
 
@@ -474,7 +474,7 @@ func getProgressBar(logs []string) string {
 	if len(logs) == 0 {
 		return "[                    ] 0%"
 	}
-	
+
 	// Find the last log with percentage
 	var percentage float64
 	for i := len(logs) - 1; i >= 0; i-- {
@@ -483,7 +483,7 @@ func getProgressBar(logs []string) string {
 			break
 		}
 	}
-	
+
 	// Create progress bar
 	width := 20
 	filled := int((percentage / 100) * float64(width))
@@ -496,7 +496,7 @@ func getProgressBar(logs []string) string {
 		}
 	}
 	bar += fmt.Sprintf("] %.1f%%", percentage)
-	
+
 	return bar
 }
 
@@ -505,4 +505,4 @@ func main() {
 		fmt.Println(err)
 		os.Exit(1)
 	}
-} 
+}

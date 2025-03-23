@@ -41,4 +41,4 @@ This PR adds an interactive CLI mode to ytproc, making it more user-friendly for
 (Add screenshots of the interactive interface if available)
 
 ## Related Issues
-(Add links to related issues if any) 
+(Add links to related issues if any)

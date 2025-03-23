@@ -22,4 +22,4 @@ func TestProcessVideo(t *testing.T) {
 	if err == nil {
 		t.Error("Expected error for invalid download type, got nil")
 	}
-} 
+}

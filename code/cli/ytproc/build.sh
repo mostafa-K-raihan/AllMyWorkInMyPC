@@ -27,21 +27,21 @@ build_platform() {
     local GOOS=$1
     local GOARCH=$2
     local SUFFIX=$3
-    
+
     print_message "Building for ${GOOS}/${GOARCH}..."
-    
+
     if [ "$GOOS" = "windows" ]; then
         BINARY="ytproc${SUFFIX}.exe"
     else
         BINARY="ytproc${SUFFIX}"
     fi
-    
+
     GOOS=$GOOS GOARCH=$GOARCH go build -o "dist/${BINARY}" -ldflags="-X 'main.Version=${VERSION}'"
     if [ $? -ne 0 ]; then
         print_error "Failed to build for ${GOOS}/${GOARCH}"
         return 1
     fi
-    
+
     print_success "Built ${BINARY}"
 }
 
@@ -70,14 +70,14 @@ fi
 # Check if --release flag is provided
 if [ "$1" == "--release" ]; then
     print_message "Building release binaries..."
-    
+
     # Build for various platforms
     build_platform "linux" "amd64" "-linux-amd64"
     build_platform "linux" "arm64" "-linux-arm64"
     build_platform "darwin" "amd64" "-darwin-amd64"
     build_platform "darwin" "arm64" "-darwin-arm64"
     build_platform "windows" "amd64" "-windows-amd64"
-    
+
     print_success "Release builds completed! Check the dist/ directory."
 else
     # Regular build for current platform
@@ -95,4 +95,4 @@ print_success "Build completed successfully!"
 if [ "$1" == "--run" ]; then
     print_message "Running program..."
     ./ytproc
-fi 
+fi

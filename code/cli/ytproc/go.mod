@@ -1,4 +1,4 @@
-module github.com/raihan/code/cli/ytproc
+module github.com/mostafa-K-raihan/AllMyWorkInMyPC/code/cli/ytproc
 
 go 1.21
 
