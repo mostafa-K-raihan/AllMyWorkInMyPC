@@ -4,6 +4,8 @@
 vim.g.mapleader = " "
 vim.g.maplocalleader = "\\"
 
+-- use system clipboard
+vim.opt.clipboard = "unnamedplus"
 
 -- tab / space stuff
 vim.cmd('set tabstop=2') -- Sets tab width to 2 spaces.
