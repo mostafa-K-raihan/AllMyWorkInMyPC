@@ -1,81 +1,157 @@
-# YTPROC - YouTube Video Processing CLI Tool
+# YTProc - YouTube Video Processor
 
-A command-line tool for downloading YouTube videos and converting them to audio format.
+A beautiful and interactive CLI tool for downloading YouTube videos with ease. Built with Go and [Charm](https://charm.sh/) libraries.
+
+![YTProc Demo](docs/demo.gif)
 
 ## Features
 
-- Download YouTube videos in best quality
-- Convert videos to MP3 audio format
-- Progress bars for download and conversion
-- Simple and intuitive CLI interface
+- 🎥 Download videos in highest quality
+- 🎵 Extract audio in MP3 format
+- 🎨 Beautiful interactive UI with real-time progress
+- 📝 Custom output filenames
+- 🚀 Easy to use interface
 
 ## Installation
 
-1. Clone this repository
-2. Install the required dependencies:
+### Pre-built Binaries
+
+Download the latest release for your platform from our [releases page](https://github.com/mostafa-K-raihan/ytproc/releases).
+
 ```bash
-pip install -r requirements.txt
+# Linux/macOS
+curl -LO https://github.com/mostafa-K-raihan/ytproc/releases/latest/download/ytproc-$(uname -s)-$(uname -m)
+chmod +x ytproc-$(uname -s)-$(uname -m)
+sudo mv ytproc-$(uname -s)-$(uname -m) /usr/local/bin/ytproc
+
+# Windows (PowerShell)
+Invoke-WebRequest -Uri "https://github.com/mostafa-K-raihan/ytproc/releases/latest/download/ytproc-windows-amd64.exe" -OutFile "ytproc.exe"
 ```
 
-## Building the Binary
+### From Source
 
-To create a standalone executable:
+Requirements:
+- Go 1.21 or higher
+- yt-dlp (will be automatically installed if missing)
 
 ```bash
 # Clone the repository
-git clone https://github.com/yourusername/ytproc.git
-cd ytproc
+git clone https://github.com/mostafa-K-raihan/ytproc.git
+cd ytproc/code/cli/ytproc
 
-# Build the binary
-./scripts/build_binary.sh
-```
+# Install directly (if you have Go installed)
+go install github.com/mostafa-K-raihan/ytproc/code/cli/ytproc@latest
 
-The executable will be created in the `dist` directory. You can then copy it to your desired location:
-
-```bash
-# Copy to a directory in your PATH (e.g., /usr/local/bin)
-sudo cp dist/ytproc /usr/local/bin/
+# Or build from source
+./build.sh
 ```
 
 ## Usage
 
-### Interactive Mode (Default)
-Simply run the program without any arguments:
+### Interactive Mode
 ```bash
 ytproc
 ```
 
-### Command-line Mode
-Use the `-c` or `--cli` flag for command-line mode:
+### Command Line Mode
 ```bash
-# Download video
-ytproc -c https://youtube.com/watch?v=VIDEO_ID -o output.mp4
-
-# Download audio
-ytproc -c https://youtube.com/watch?v=VIDEO_ID -a -o output.mp3
+ytproc <youtube-url> [output-filename]
 ```
 
-### Download Video
+## Code Structure
+
+### Main Components
+
+1. **UI Components** (`main.go:70-110`):
+   - Uses [Bubble Tea](https://github.com/charmbracelet/bubbletea) for terminal UI
+   - Custom styles defined using [Lip Gloss](https://github.com/charmbracelet/lipgloss)
+   - Spinner for loading states
+
+2. **State Management** (`main.go:112-146`):
+   ```go
+   type model struct {
+       urlInput       textinput.Model
+       outputInput    textinput.Model
+       spinner       spinner.Model
+       state         string
+       // ... other fields
+   }
+   ```
+   Handles different states: welcome, url input, download type selection, processing, etc.
+
+3. **Download Processing** (`main.go:450-520`):
+   ```go
+   func processVideo(url, outputName, downloadType string, logCallback func(string)) error {
+       // Validates input and handles download using yt-dlp
+   }
+   ```
+   Manages video downloads using yt-dlp with different options based on download type.
+
+4. **Progress Display** (`main.go:522-570`):
+   ```go
+   func getProgressBar(logs []string) string {
+       // Creates visual progress bar
+   }
+   ```
+   Provides real-time download progress with a visual progress bar.
+
+## Development
+
+### Building from Source
+
+1. Clone the repository:
 ```bash
-python ytproc.py download "https://www.youtube.com/watch?v=VIDEO_ID" -o output
+git clone https://github.com/mostafa-K-raihan/ytproc.git
+cd ytproc/code/cli/ytproc
 ```
 
-### Download and Convert to Audio
+2. Run tests:
 ```bash
-python ytproc.py download "https://www.youtube.com/watch?v=VIDEO_ID" -o output -a
+./build.sh
 ```
 
-### Options
+3. Build for all platforms:
+```bash
+./build.sh --release
+```
 
-- `-o, --output`: Specify output filename (without extension)
-- `-a, --audio-only`: Download and convert to audio only
+### Cross-Platform Building
 
-## Requirements
+The release workflow automatically builds binaries for:
+- Linux (amd64, arm64)
+- macOS (amd64, arm64)
+- Windows (amd64)
 
-- Python 3.6+
-- FFmpeg (for audio conversion)
-- Required Python packages (see requirements.txt)
+### Release Process
 
-## Note
+1. Update version in `build.sh`
+2. Create and push a tag:
+```bash
+git tag ytproc/v1.0.0
+git push origin ytproc/v1.0.0
+```
 
-Make sure you have FFmpeg installed on your system for audio conversion functionality.
+This will trigger the GitHub Actions workflow to:
+- Run tests
+- Build cross-platform binaries
+- Create a GitHub release
+- Upload the binaries
+
+## Contributing
+
+1. Fork the repository
+2. Create your feature branch (`git checkout -b feature/amazing-feature`)
+3. Commit your changes (`git commit -m 'Add some amazing feature'`)
+4. Push to the branch (`git push origin feature/amazing-feature`)
+5. Open a Pull Request
+
+## Dependencies
+
+- [yt-dlp](https://github.com/yt-dlp/yt-dlp): For video downloading
+- [Bubble Tea](https://github.com/charmbracelet/bubbletea): Terminal UI framework
+- [Lip Gloss](https://github.com/charmbracelet/lipgloss): Terminal styling
+- [Cobra](https://github.com/spf13/cobra): CLI framework
+
+## License
+
+This project is licensed under the MIT License - see the [LICENSE](LICENSE) file for details.

@@ -8,6 +8,9 @@
 node_modules
 .ssh
 
+go
+.vscode
+.vscode-server
 # Python
 __pycache__/
 *.py[cod]
@@ -39,3 +42,51 @@ Thumbs.db
 logs/
 log/
 .landscape/sysinfo.log
+
+# Additional library directories
+vendor/
+packages/
+dist/
+build/
+out/
+.next/
+.nuxt/
+.output/
+coverage/
+.nyc_output/
+
+# Package manager files
+yarn.lock
+package-lock.json
+pnpm-lock.yaml
+composer.lock
+poetry.lock
+Pipfile.lock
+Cargo.lock
+go.sum
+
+# Build artifacts
+*.o
+*.obj
+*.exe
+*.dll
+*.so
+*.dylib
+*.class
+*.jar
+*.war
+*.ear
+*.zip
+*.tar.gz
+*.rar
+
+# IDE specific files
+.vscode/*
+!.vscode/settings.json
+!.vscode/tasks.json
+!.vscode/launch.json
+!.vscode/extensions.json
+.idea/*
+*.iml
+*.iws
+*.ipr
