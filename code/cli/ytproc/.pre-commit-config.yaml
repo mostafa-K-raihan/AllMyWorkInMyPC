@@ -2,6 +2,7 @@ repos:
 -   repo: https://github.com/pre-commit/pre-commit-hooks
     rev: v4.5.0
     hooks:
+    -   id: trailing-whitespace
     -   id: end-of-file-fixer
     -   id: check-yaml
     -   id: check-added-large-files
@@ -9,17 +10,28 @@ repos:
     -   id: check-json
     -   id: check-merge-conflict
     -   id: detect-private-key
+    -   id: check-case-conflict
+    -   id: check-executables-have-shebangs
+    -   id: check-shebang-scripts-are-executable
+    -   id: check-symlinks
+    -   id: debug-statements
+    -   id: mixed-line-ending
 
--   repo: https://github.com/psf/black
-    rev: 24.1.1
+# Go specific hooks
+-   repo: https://github.com/dnephin/pre-commit-golang
+    rev: v0.5.1
     hooks:
-    -   id: black
-        language_version: python3.12
-        exclude: ^(venv|env|.env|.venv|ENV)/
-
--   repo: https://github.com/pycqa/isort
-    rev: 5.13.2
-    hooks:
-    -   id: isort
-        args: ["--profile", "black"]
-        exclude: ^(venv|env|.env|.venv|ENV)/
+    -   id: go-fmt
+        args: [-s]
+    -   id: go-vet
+        args: [-v]
+    -   id: go-imports
+    -   id: golangci-lint
+        args: [--timeout=5m]
+    -   id: go-unit-tests
+        args: [-v -count=1 -race -coverprofile=coverage.txt -covermode=atomic]
+    -   id: go-build
+    -   id: go-mod-tidy
+    -   id: go-validate
+    -   id: go-test-coverage
+        args: [--min-coverage=80]
