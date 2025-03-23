@@ -1,13 +1,37 @@
+# Root .pre-commit-config.yaml
 repos:
--   repo: local
+  # General repository-wide hooks
+  - repo: https://github.com/pre-commit/pre-commit-hooks
+    rev: v4.4.0
     hooks:
-      - id: delegate-precommit
-        name: Delegate Pre-commit Tasks
-        entry: |
-          echo "Delegating pre-commit tasks to submodules"
-          cd code/cli/ytproc && go run precommit.go
-        language: system
-        types: [go]  # Ensure this runs only for Go files
+      - id: trailing-whitespace
+      - id: end-of-file-fixer
+      - id: check-yaml
+      - id: check-json
+      - id: check-added-large-files
+      - id: check-merge-conflict
+      - id: mixed-line-ending
+        args: ['--fix=lf']
 
-# Remove any Python-specific hooks
-# If you had any Python-specific hooks, they should be deleted from here.
+  # Git-related hooks
+  - repo: https://github.com/commitizen-tools/commitizen
+    rev: v3.2.1
+    hooks:
+      - id: commitizen
+        stages: [commit-msg]
+
+  # Special hook to run pre-commit in submodules
+  - repo: meta
+    hooks:
+      - id: check-hooks-apply
+      - id: check-useless-excludes
+
+  # Hook to run pre-commit in submodules that have their own config
+  - repo: local
+    hooks:
+      - id: submodule-pre-commit
+        name: Run pre-commit in submodules
+        language: system
+        entry: bash -c 'find code -type f -name ".pre-commit-config.yaml" -exec dirname {} \; | xargs -I {} bash -c "cd {} && echo \"Running pre-commit in {}...\" && pre-commit run --files $(git diff --staged --name-only | grep ^{})"'
+        pass_filenames: false
+        always_run: true
