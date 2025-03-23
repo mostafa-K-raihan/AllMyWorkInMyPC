@@ -90,3 +90,23 @@ go.sum
 *.iml
 *.iws
 *.ipr
+
+# Binary files
+*.exe
+*.dll
+*.so
+*.dylib
+*.test
+*.out
+ytproc
+ytproc.exe
+ytproc.test
+ytproc.out
+
+# Go specific
+*.exe~
+*.dll~
+*.so~
+*.dylib~
+*.test~
+*.out~

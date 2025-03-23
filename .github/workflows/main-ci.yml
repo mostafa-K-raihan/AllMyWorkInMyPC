@@ -34,29 +34,34 @@ jobs:
       with:
         submodules: 'recursive'
 
-    - name: Set up Python
-      uses: actions/setup-python@v4
-      with:
-        python-version: '3.9'
-
-    # Cache pip packages
-    - name: Cache pip packages
-      uses: actions/cache@v3
-      with:
-        path: ~/.cache/pip
-        key: ${{ runner.os }}-pip-${{ hashFiles('**/requirements.txt') }}
-        restore-keys: |
-          ${{ runner.os }}-pip-
-
     # Check ytproc submodule
     - name: Check ytproc
       if: contains(github.event.pull_request.changed_files, 'code/cli/ytproc/')
+      uses: actions/setup-go@v4
+      with:
+        go-version: '1.21'
+        check-latest: true
+        submodules: true
+
+    - name: Test ytproc
+      if: contains(github.event.pull_request.changed_files, 'code/cli/ytproc/')
       run: |
         cd code/cli/ytproc
-        pip install -r requirements.txt
-        pytest --cov=ytproc tests/
-      env:
-        PYTHONPATH: ${{ github.workspace }}/code/cli/ytproc
+        go test -v ./...
+        go build -v ./...
+
+    - name: Run ytproc tests
+      if: contains(github.event.pull_request.changed_files, 'code/cli/ytproc/')
+      run: |
+        cd code/cli/ytproc
+        go test -race -coverprofile=coverage.txt -covermode=atomic ./...
+
+    - name: Upload coverage
+      if: contains(github.event.pull_request.changed_files, 'code/cli/ytproc/')
+      uses: codecov/codecov-action@v3
+      with:
+        file: ./code/cli/ytproc/coverage.txt
+        fail_ci_if_error: true
 
   # Add more submodule checks here as needed
   # Example:
